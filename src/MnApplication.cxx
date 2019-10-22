@@ -11,6 +11,8 @@
 #include "Minuit2/FunctionMinimum.h"
 #include "Minuit2/ModularFunctionMinimizer.h"
 #include "Minuit2/FCNGradientBase.h"
+#include "iostream"
+
 
 
 #ifdef DEBUG
@@ -58,8 +60,7 @@ FunctionMinimum MnApplication::operator()(unsigned int maxfcn, double toler) {
       fNumCall += min.NFcn();
       fState = min.UserState();
 
-#ifdef DEBUG
-//       std::cout << "Initial MIGRAD state is " << MnUserParameterState( min.States()[0], min.Up(), min.Seed().Trafo() ) << std::endl;
+      std::cout << "Initial MIGRAD state is " << MnUserParameterState( min.States()[0], min.Up(), min.Seed().Trafo() ) << std::endl;
       std::cout << "State resulting from Migrad. Total Function calls  " << fNumCall  << fState << std::endl;
       const std::vector<ROOT::Minuit2::MinimumState>& iterationStates =  min.States();
       std::cout << "Number of iterations " << iterationStates.size() << std::endl;
@@ -78,7 +79,6 @@ FunctionMinimum MnApplication::operator()(unsigned int maxfcn, double toler) {
             std::cout << " p" << j << " = " << st.Vec()(j);
          std::cout << std::endl;
       }
-#endif
 
       return min;
    }
